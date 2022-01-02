@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/login/style.css">
+    <script src="/static/js/login/main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <title>Signup| Health Portal</title>
+    <style>
+        .helptext{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <form method="post" class="form">
+            {% csrf_token %}
+            <h2>Signup</h2>
+            <hr>
+            
+            {{ form }}
+            <input type="submit" value="Submit">
+            <!-- <button type="submit" onclick="login()">Login</button>
+            <p>Already have an account? <a href="/citizen/signup">Login</a></p> -->
+
+        </div>
+
+    </section>
+    <script>
+        document.getElementById("id_password1").setAttribute("placeholder", "Password");
+        document.getElementById("id_password2").setAttribute("placeholder", "Re Type Password");
+        document.getElementById("id_username").setAttribute("placeholder", "Username");
+    </script>
+</body>
+</html>

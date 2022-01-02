@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script
+    src="https://kit.fontawesome.com/c7cbb7fafb.js"
+    crossorigin="anonymous"
+  ></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        
+        section {
+            background: url("/kevin-lanceplaine-sO-JmQj95ec-unsplash.jpg");
+            height: 100vh;
+            width: 100vw;
+            background-size: cover;
+            background-repeat: no-repeat;
+            overflow: hidden;
+        }
+        .avatar{
+            height: 150px;
+            width: 150px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 0, 0.062);
+            border: 0.4px solid rgba(219, 197, 197, 0.808);
+        }
+        .overlay{
+            background-color: rgba(56, 56, 63, 0.267);
+            height: 100vh;
+            width: 100vw;
+            position: absolute; 
+            top: 0;
+            backdrop-filter: blur(8px);
+            display: flex;
+
+        }
+        .profile{
+            margin-top: 5vh;
+            height: 90vh;
+            width: 20vw;
+            /* background-color: blue; */
+            /* box-shadow: 0 0 10px rgba(7, 105, 134, 0.418); */
+            border-right: 1px solid rgba(170, 131, 131, 0.26);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+            /* justify-content: center; */
+        }
+        .change_dp{
+            height: 100%;
+            width: 100%;
+            background-color: rgba(25, 7, 105, 0.452);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            display: none;
+        }
+        .change_dp>button{
+            border-radius: 50%;
+            padding: 2px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+        .far{
+            color: white;
+            font-size: 1.2rem;
+        }
+        .avatar:hover .change_dp{
+            display: flex;
+        }
+        .info{
+            height: 10vh;
+            width: 100%;
+            /* background-color: white; */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+            color: white;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            text-transform: capitalize;
+            font-size: 19px;
+            
+        }
+        .feel{
+            height: 18vh;
+            width: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            /* background-color: white; */
+            color: rgb(181, 184, 16);
+            margin-top: 5vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+        .feel_emoji{
+            display: flex;
+            gap: 2rem;
+        }
+        .feel_emoji>i{
+            font-size: 2.2rem;
+            
+        }
+        .feel_emoji>i:hover{
+            cursor: pointer;
+            color: pink;
+            font-size: 2.5rem;
+        }
+        .todos{
+            /* background-color: white; */
+            height: 100vh;
+            width:80vw;
+            display: flex;
+        }
+        .new_append{
+            height: 95%;
+            margin-top: 2.5%;
+            width: 45vw;
+            /* background-color: yellow; */
+            border-right: 1px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .form{
+            height: 70vh;
+            width: 40vw;
+            /* background-color: blue; */
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: space-evenly;
+        }
+        .form>form{
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            flex-direction: column;
+        }
+        .my_todo{
+            
+            height: 100%;
+            width: 35vw;
+            /* background-color: blue; */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+            /* margin-top: 30px; */
+        }
+        .card{
+            height: 70px;
+            width: 85%;
+            /* background-color: ; */
+        }
+        .card_inner{
+            
+            height: 70px;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.699);
+            border-radius: 3px;
+            display: flex;
+        }
+        .description_task{
+            background-color: yellowgreen;
+            height: 0%;
+            overflow: hidden;
+        }
+        .decx{
+            height: 100%;
+            width: 80%;
+            /* background-color: yellow; */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            word-wrap: break-word;
+        }
+        .done{
+            height: 100%;
+            width: 20%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+        .tick_container{
+            height: 50px;
+            width: 50px;
+            background-color: rgba(255, 255, 0, 0.76);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .tick_container>i{
+            font-size: 1.4rem;
+            color: rgb(76, 0, 255);
+        }
+        .tick_container:hover{
+            cursor: pointer;
+            box-shadow: 0 0 20px rgb(166, 255, 0);
+        }
+        .input_class{
+            background-color: rgba(0, 0, 255, 0.664);
+            border-radius: 10px;
+            margin-top: 20px;
+            padding: 10px;
+            color: yellow;
+            font-family: monospace;
+            text-transform: capitalize;
+            outline: none;
+            border: none;
+        }
+        .animation_class{
+            animation: dropdown;
+            animation-duration: 1s;
+            animation-fill-mode: forwards;
+            animation-iteration-count: 1;
+        }
+        @keyframes dropdown {
+            from{height: 0%;}
+            to{height: 100%;padding: 20px;padding-bottom: 40px;}
+        }
+        #view_more>i{
+            /* rotate: 45deg; */
+            transform: rotate(45deg);
+            cursor: pointer;
+            text-shadow: 0 0 10px blue;
+            /* box-shadow: 0 0 10px blue; */
+        }
+        .rotate_class{
+            animation: rotation;
+            animation-duration: 1s;
+            animation-fill-mode: forwards;
+            animation-iteration-count: 1;
+        }
+        @keyframes rotation {
+            from{transform: rotate(45deg);}
+            to{transform: rotate(0deg);}
+        }
+        .form>h2{
+            color: rgb(253, 236, 1);
+            text-shadow: 0 0 10px black;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <div class="overlay">
+            <div class="profile">
+                <div class="avatar">
+                    <div class="change_dp">
+                        <button><i class="far fa-edit"></i></button>
+                    </div>
+                </div>
+                <div class="info">
+                    kanak Mittal
+                </div>
+                <div class="feel">
+                    <h3>How You Feeling?</h3>
+                    <div class="feel_emoji">
+                        <i class="far fa-smile-beam" title="Happy"></i>
+                        <i class="far fa-meh" title="Neutral"></i>
+                        <i class="far fa-frown" title="sad"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="todos">
+                <div class="new_append">
+                    <div class="form">
+                        <h2>Add Task to your Todo</h2>
+                        <form action="" method="post">
+                            <input type="text" placeholder="Title" class="input_class" style="width: 20vw;">
+                            <textarea name="" id="" cols="50" rows="15" placeholder="Description" class="input_class"></textarea>
+                        </form>
+                    </div>
+                </div>
+                <div class="my_todo">
+                    <div class="card">
+                        <div class="card_inner">
+                            <div class="decx">I need to do this any how</div>
+                            <div class="done">
+                                <div id="view_more"><i class="fas fa-times" onclick="drpodown_decription()" id="to_rotate"></i></div>
+                                <div class="tick_container" onclick="Yay_done()"><i class="fas fa-check"></i></div>
+                            </div>
+                        </div>
+                        <div class="description_task">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ducimus eum ipsa harum nisi praesentium labore delectus? Nulla, hic facere veritatis ducimus ad necessitatibus temporibus, reprehenderit beatae sed praesentium ratione! Cumque!</div>
+                    </div>
+                    <div class="card">
+                        <div class="card_inner">
+                            <div class="decx">I need to do this any how</div>
+                            <div class="done">
+                                <div id="view_more"><i class="fas fa-times" onclick="drpodown_decription()" id="to_rotate"></i></div>
+                                <div class="tick_container" onclick="Yay_done()"><i class="fas fa-check"></i></div>
+                            </div>
+                        </div>
+                        <div class="description_task">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ducimus eum ipsa harum nisi praesentium labore delectus? Nulla, hic facere veritatis ducimus ad necessitatibus temporibus, reprehenderit beatae sed praesentium ratione! Cumque!</div>
+                    </div>
+                    <div class="card">
+                        <div class="card_inner">
+                            <div class="decx">I need to do this any how</div>
+                            <div class="done">
+                                <div id="view_more"><i class="fas fa-times" onclick="drpodown_decription()" id="to_rotate"></i></div>
+                                <div class="tick_container" onclick="Yay_done()"><i class="fas fa-check"></i></div>
+                            </div>
+                        </div>
+                        <div class="description_task">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ducimus eum ipsa harum nisi praesentium labore delectus? Nulla, hic facere veritatis ducimus ad necessitatibus temporibus, reprehenderit beatae sed praesentium ratione! Cumque!</div>
+                    </div>
+                    <div class="card">
+                        <div class="card_inner">
+                            <div class="decx">I need to do this any how</div>
+                            <div class="done">
+                                <div id="view_more"><i class="fas fa-times" onclick="drpodown_decription()" id="to_rotate"></i></div>
+                                <div class="tick_container" onclick="Yay_done()"><i class="fas fa-check"></i></div>
+                            </div>
+                        </div>
+                        <div class="description_task">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ducimus eum ipsa harum nisi praesentium labore delectus? Nulla, hic facere veritatis ducimus ad necessitatibus temporibus, reprehenderit beatae sed praesentium ratione! Cumque!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        function Yay_done(){
+        var count = 400;
+        var defaults = {
+        origin: { y: 0.7 }
+        };
+
+        function fire(particleRatio, opts) {
+        confetti(Object.assign({}, defaults, opts, {
+            particleCount: Math.floor(count * particleRatio)
+        }));
+        }
+
+        fire(0.25, {
+        spread: 26,
+        startVelocity: 55,
+        });
+        fire(0.2, {
+        spread: 60,
+        });
+        fire(0.35, {
+        spread: 100,
+        decay: 0.91,
+        scalar: 0.8
+        });
+        fire(0.1, {
+        spread: 120,
+        startVelocity: 25,
+        decay: 0.92,
+        scalar: 1.2
+        });
+        fire(0.1, {
+        spread: 120,
+        startVelocity: 45,
+        });
+    }
+    rotated = false;
+    function drpodown_decription(){
+        let drop_cont = document.getElementsByClassName('description_task')[0];
+        let button_drpodown = document.getElementById('to_rotate');
+        if(rotated == false){
+            button_drpodown.classList.add('rotate_class');
+            drop_cont.classList.add('animation_class');
+            rotated = true;
+        }
+        else{
+            button_drpodown.classList.remove('rotate_class');
+            drop_cont.classList.remove('animation_class');
+            // button_drpodown.style.transform = 'rotate(45deg)';
+            rotated = false;
+        }
+    }
+    </script>
+</body>
+</html>

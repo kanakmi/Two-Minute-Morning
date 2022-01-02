@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confession</title>
+    <script
+    src="https://kit.fontawesome.com/c7cbb7fafb.js"
+    crossorigin="anonymous"
+  ></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        
+        section {
+            background: url("/static/kevin-lanceplaine-sO-JmQj95ec-unsplash.jpg");
+            height: 100vh;
+            width: 100vw;
+            background-size: cover;
+            background-repeat: no-repeat;
+            overflow: hidden;
+        }
+        .avatar{
+            height: 150px;
+            width: 150px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 0, 0.062);
+            border: 0.4px solid rgba(219, 197, 197, 0.808);
+        }
+        .overlay{
+            background-color: rgba(56, 56, 63, 0.267);
+            height: 100vh;
+            width: 100vw;
+            position: absolute; 
+            top: 0;
+            backdrop-filter: blur(8px);
+            display: flex;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        textarea{
+            background-color: rgba(0, 0, 255, 0.747);
+            border: none;
+            outline: none;
+            border-radius: 10px;
+            padding: 30px;
+            color: yellow;
+            text-transform: capitalize;
+
+        }
+        h2{
+            padding-bottom: 10px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            color: yellow;
+        }
+        .overlay>div{
+            background-color: rgb(255, 251, 0);
+            padding: 8px;
+            color: rgb(78, 11, 11);
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 19px;
+        }
+        .submitbtn{
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            color: burlywood;
+            background-color: red;
+            padding: 8px;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <div class="overlay">
+            <a href="/" style="position: absolute; top: 30px; right: 80px; padding: 10px; background-color: yellow; border-radius: 10px; text-decoration: none; "><i class="fas fa-home"></i> Home</a>
+            <div>Confess your Sins</div>
+            <form action="" method="post">
+                {% csrf_token %}
+                <h2>I will let go of</h2>
+                <textarea name="decs" id="decs" cols="100" rows="30"></textarea>
+                <input type="submit" value="Append" class="submitbtn">
+            </form>
+        </div>
+    </section>
+
+</body>
+</html>
